@@ -49,6 +49,7 @@ e.g. Math Biology English, 2hrs`;
   res.status(200).send(response);
 }
 
+
 async function askTutor(userInput) {
   const systemPrompt = `You are Msaidizi, a study assistant for Kenyan secondary school students on USSD.
 Explain clearly in plain language, under 300 characters total, no Markdown, no asterisks.
@@ -56,24 +57,22 @@ Only discuss academic subjects (Math, Sciences, English, Kiswahili, Humanities).
 Do not give exam answers if the student says they are in an exam.
 If unsure, say so plainly rather than guessing.`;
 
-  const response = await fetch("https://api.gemini.ai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${process.env.GOOGLE_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: "mistral-large-latest",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userInput }
-      ]
-    })
-  });
+  const response = await fetch(
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": process.env.GEMINI_API_KEY
+      },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: `${systemPrompt}\n\nStudent question: ${userInput}` }] }]
+      })
+    }
+  );
 
   const data = await response.json();
-  let text = data.choices?.[0]?.message?.content || "Sorry, I couldn't get an answer right now.";
-  // USSD has strict length limits — trim to be safe
+  let text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't get an answer right now.";
   if (text.length > 320) text = text.slice(0, 317) + "...";
   return text;
-}
+} 
