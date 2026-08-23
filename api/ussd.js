@@ -56,11 +56,11 @@ Only discuss academic subjects (Math, Sciences, English, Kiswahili, Humanities).
 Do not give exam answers if the student says they are in an exam.
 If unsure, say so plainly rather than guessing.`;
 
-  const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
+  const response = await fetch("https://api.gemini.ai/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${process.env.MISTRAL_API_KEY}`
+      "Authorization": `Bearer ${process.env.GOOGLE_API_KEY}`
     },
     body: JSON.stringify({
       model: "mistral-large-latest",

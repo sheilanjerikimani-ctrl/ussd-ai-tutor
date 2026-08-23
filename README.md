@@ -20,12 +20,12 @@ Students in rural and low-income areas often lack access to a tutor and rely on 
 
 ## How It Works
 
-Africa's Talking sends an HTTP POST request to this app's webhook (`/api/ussd`) every time a user interacts with the USSD menu. The backend tracks where the user is in the conversation using the cumulative `text` parameter USSD provides, and calls the Mistral AI API to generate responses for open-ended questions, quizzes, and study plans — all trimmed to fit USSD's character and formatting constraints.
+Africa's Talking sends an HTTP POST request to this app's webhook (`/api/ussd`) every time a user interacts with the USSD menu. The backend tracks where the user is in the conversation using the cumulative `text` parameter USSD provides, and calls the Gemini AI API to generate responses for open-ended questions, quizzes, and study plans — all trimmed to fit USSD's character and formatting constraints.
 
 ## Tech Stack
 
 - Backend: Node.js (Vercel serverless function)
-- LLM Provider: Mistral AI (`mistral-large-latest`)
+- LLM Provider: Gemini AI 
 - USSD Gateway: Africa's Talking (Sandbox)
 - Hosting: Vercel
 
@@ -38,11 +38,11 @@ cd ussd-ai-tutor
 ```
 
 ### 2. Get a Mistral API key
-Sign up at [console.mistral.ai](https://console.mistral.ai) → API Keys → Create new key.
+Sign up at [console.gemini.ai](https://console.gemini.ai) → API Keys → Create new key.
 
 ### 3. Deploy to Vercel
 1. Go to [vercel.com](https://vercel.com) → **Add New → Project** → import this repo
-2. Add an environment variable: `MISTRAL_API_KEY` = your key
+2. Add an environment variable: `GEMINI_API_KEY` = your key
 3. Deploy — you'll get a live URL like `https://ussd-ai-tutor.vercel.app`
 
 ### 4. Set up Africa's Talking
