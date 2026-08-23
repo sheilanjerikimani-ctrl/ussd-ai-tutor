@@ -45,7 +45,7 @@ e.g. Math Biology English, 2hrs`;
     response = `END Sorry, something went wrong. Please try again shortly.`;
   }
 
-  res.set("Content-Type", "text/plain");
+  res.setHeader("Content-Type", "text/plain");
   res.status(200).send(response);
 }
 
